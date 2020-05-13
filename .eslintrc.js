@@ -6,8 +6,9 @@ module.exports = {
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/eslint-recommended"
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended"  
     ],
     "globals": {
         "Atomics": "readonly",
@@ -27,7 +28,8 @@ module.exports = {
     ],
     "rules": {
         "semi": ["error", "always"],
-        "quotes": ["error", "single"]
+        "quotes": ["error", "single"],
+        "@typescript-eslint/explicit-function-return-type": "off"
     },
     "settings": {
         "react": {

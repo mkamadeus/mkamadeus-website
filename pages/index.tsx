@@ -1,56 +1,81 @@
 import React from 'react';
 import BiodataComponent from '../components/BiodataComponent';
-import CardIconComponent from '../components/CardIconComponent';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import WelcomeJumbotronComponent from '../components/WelcomeJumbotronComponent';
+import CardContainerComponent from '../components/CardContainerComponent';
+import SkillComponent from '../components/SkillComponent';
 
 export default class IndexPage extends React.Component {
-  render()
-  {
-    return(
+  render() {
+    // prettier-ignore
+    const skillSet = [
+      ['C'],
+      ['C++'],
+      ['Java', require('@fortawesome/free-brands-svg-icons/faJava').faJava],
+      ['JavaFX'],
+      ['Python',require('@fortawesome/free-brands-svg-icons/faPython').faPython],
+      ['Flask'],
+      ['HTML', require('@fortawesome/free-brands-svg-icons/faHtml5').faHtml5],
+      ['CSS', require('@fortawesome/free-brands-svg-icons/faCss3').faCss3],
+      ['SCSS', require('@fortawesome/free-brands-svg-icons/faSass').faSass],
+      ['Tailwind'],
+      ['Javascript', require('@fortawesome/free-brands-svg-icons/faJs').faJs],
+      ['React', require('@fortawesome/free-brands-svg-icons/faReact').faReact],
+      ['Next.js'],
+      ['Vue', require('@fortawesome/free-brands-svg-icons/faVuejs').faVuejs],
+      ['Vuetify'],
+      ['Nuxt.js'],
+      ['Typescript'],
+      ['MySQL'],
+      ['Node.js', require('@fortawesome/free-brands-svg-icons/faNodeJs').faNodeJs],
+    ];
+
+    const skillColorSet = [
+      'bg-teal-400',
+      'bg-purple-500',
+      'bg-indigo-400',
+      'bg-pink-400',
+    ];
+
+    return (
       <div>
-        <div className="relative">
-          <div className="flex flex-col md:flex-row items-center justify-evenly p-6 py-12 bg-gradient text-white" style={{'minHeight' : '75vh'}}>
-            <div className="p-4 w-64 md:w-1/6">
-              <img src="/laptop.png" alt="Laptop illustration" />
-            </div>
-            <div className="flex flex-col">
-              <div className="text-3xl text-center md:text-6xl md:text-left font-bold">
-                Welcome!
-              </div>
-              <div className="text-center text-xl font-light">
-                My name is Matthew Kevin Amadeus, and this is my website.
-              </div>
-            </div>
-          </div>
-          <div className="absolute w-full"  style={{'bottom' : '0'}}>
-            <svg width="100%" height="50vh" viewBox="0 0 500 500" preserveAspectRatio="none">
-              <path d="M 0 475 C 200 375 275 500 500 475 L 500 500 L 0 500 Z" fill="white" />
-            </svg>
-          </div>
-        </div>
+        <WelcomeJumbotronComponent />
         <div className="container mx-auto p-4">
           <div className="my-6">
             <BiodataComponent />
           </div>
-          <div className="flex flex-col md:flex-row my-2 md: mx-2">
-            <div className="my-2 md:mx-2">
-              <CardIconComponent cardTitle={'Biodata'} icon={require('@fortawesome/free-solid-svg-icons/faUser').faUser as IconProp}>
-                Born in Jakarta, grew up in Gading Serpong, and currently living in Bandung.
-              </CardIconComponent>
-            </div>
-            <div className="my-2 md:mx-2">
-              <CardIconComponent cardTitle={'Education'} icon={require('@fortawesome/free-solid-svg-icons/faGraduationCap').faGraduationCap  as IconProp}>
-                Currently studying in Institut Teknologi Bandung as an Informatics Undergraduate.
-              </CardIconComponent>
-            </div>
-            <div className="my-2 md:mx-2">
-              <CardIconComponent cardTitle={'Interest'} icon={require('@fortawesome/free-solid-svg-icons/faCode').faCode as IconProp}>
-                Have been interested in programming since middle school; continuing to develop new skills.
-              </CardIconComponent>
+          <div className="my-6">
+            <CardContainerComponent />
+          </div>
+          <div className="my-6">
+            <div className="flex flex-col md:flex-row md:items-center">
+              <div className="text-center md:text-right md:px-4 md:text-lg">
+                Because I love studying computer and software related stuff, I
+                developed some skills that I have been honing for a while now.
+                Here are a list of my skills.
+              </div>
+              <div className="px-5 my-2">
+                <div className="flex items-center justify-center md:justify-start flex-wrap -mx-1">
+                  {skillSet.map((item) => {
+                    return (
+                      <div key={item.toString()} className="p-1">
+                        <SkillComponent
+                          skillName={item[0]}
+                          bgClass={
+                            skillColorSet[
+                              Math.floor(Math.random() * skillColorSet.length)
+                            ]
+                          }
+                          icon={item[1] || null}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      );  
-    }
+    );
+  }
 }
