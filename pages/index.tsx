@@ -2,40 +2,51 @@ import React from 'react';
 import BiodataComponent from '../components/BiodataComponent';
 import WelcomeJumbotronComponent from '../components/WelcomeJumbotronComponent';
 import CardContainerComponent from '../components/CardContainerComponent';
-import SkillComponent from '../components/SkillComponent';
+import SkillContainerComponent from '../components/SkillContainerComponent';
+import ProjectCardComponent from '../components/ProjectCardComponent';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 export default class IndexPage extends React.Component {
   render() {
-    // prettier-ignore
-    const skillSet = [
-      ['C'],
-      ['C++'],
-      ['Java', require('@fortawesome/free-brands-svg-icons/faJava').faJava],
-      ['JavaFX'],
-      ['Python',require('@fortawesome/free-brands-svg-icons/faPython').faPython],
-      ['Flask'],
-      ['HTML', require('@fortawesome/free-brands-svg-icons/faHtml5').faHtml5],
-      ['CSS', require('@fortawesome/free-brands-svg-icons/faCss3').faCss3],
-      ['SCSS', require('@fortawesome/free-brands-svg-icons/faSass').faSass],
-      ['Tailwind'],
-      ['Javascript', require('@fortawesome/free-brands-svg-icons/faJs').faJs],
-      ['React', require('@fortawesome/free-brands-svg-icons/faReact').faReact],
-      ['Next.js'],
-      ['Vue', require('@fortawesome/free-brands-svg-icons/faVuejs').faVuejs],
-      ['Vuetify'],
-      ['Nuxt.js'],
-      ['Typescript'],
-      ['MySQL'],
-      ['Node.js', require('@fortawesome/free-brands-svg-icons/faNodeJs').faNodeJs],
+    const projectInfo: [
+      string,
+      string,
+      string,
+      [IconProp, string, string][]
+    ][] = [
+      [
+        'https://raw.githubusercontent.com/mkamadeus/Python-ITB-NIM-Scraper/master/src/cookies.png',
+        'ITB NIM Scraper',
+        "I got myself a bunch of data for ITB students by scraping ITB's site!",
+        [
+          [
+            require('@fortawesome/free-brands-svg-icons/faGithub')
+              .faGithub as IconProp,
+            'hover:text-black',
+            'https://github.com/mkamadeus/Python-ITB-NIM-Scraper',
+          ],
+        ],
+      ],
+      [
+        '/myphoto.jpg',
+        'Geprek NIM Finder',
+        'With that data I got, my friend and I developed myself an ITB Student ID Finder.',
+        [
+          [
+            require('@fortawesome/free-brands-svg-icons/faGithub')
+              .faGithub as IconProp,
+            'hover:text-black',
+            'https://github.com/mkamadeus/nim-finder-frontend',
+          ],
+          [
+            require('@fortawesome/free-solid-svg-icons/faGlobe')
+              .faGlobe as IconProp,
+            'hover:text-indigo-500',
+            'https://geprek.gatot.id',
+          ],
+        ],
+      ],
     ];
-
-    const skillColorSet = [
-      'bg-teal-400',
-      'bg-purple-500',
-      'bg-indigo-400',
-      'bg-pink-400',
-    ];
-
     return (
       <div>
         <WelcomeJumbotronComponent />
@@ -47,30 +58,31 @@ export default class IndexPage extends React.Component {
             <CardContainerComponent />
           </div>
           <div className="my-6">
-            <div className="flex flex-col md:flex-row md:items-center">
-              <div className="text-center md:text-right md:px-4 md:text-lg">
-                Because I love studying computer and software related stuff, I
-                developed some skills that I have been honing for a while now.
-                Here are a list of my skills.
+            <SkillContainerComponent />
+          </div>
+          <div className="my-6">
+            <div>
+              <div>
+                In my studies, I also have done several projects to improve my
+                skills out on the wild. Here is a short compilation of my
+                projects!
               </div>
-              <div className="px-5 my-2">
-                <div className="flex items-center justify-center md:justify-start flex-wrap -mx-1">
-                  {skillSet.map((item) => {
-                    return (
-                      <div key={item.toString()} className="p-1">
-                        <SkillComponent
-                          skillName={item[0]}
-                          bgClass={
-                            skillColorSet[
-                              Math.floor(Math.random() * skillColorSet.length)
-                            ]
-                          }
-                          icon={item[1] || null}
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
+              <div className="flex flex-col md:flex-row">
+                {projectInfo.map((item) => {
+                  return (
+                    <div
+                      className="my-2 w-full md:w-1/2 md:mx-2 lg:w-1/3"
+                      key={item[1].toString()}
+                    >
+                      <ProjectCardComponent
+                        imageUrl={item[0]}
+                        title={item[1]}
+                        description={item[2]}
+                        icons={item[3]}
+                      />
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
